@@ -20,31 +20,27 @@ exports.lambdaHandler = async (event, context) => {
         // const ret = await axios(url);
         console.log("In the function..");
         const aws = require("aws-sdk");
+        console.log("defined aws");
         const AthenaExpress = require("athena-express");
+        console.log("defined AthenaExpress");
         const athenaExpressConfig = { aws }; //configuring athena-express with aws sdk object
         const athenaExpress = new AthenaExpress(athenaExpressConfig);
-        let myQuery = {
-            sql: "SELECT title, genres, release_date, tagline FROM itc6460_movie_metadata limit 10" /* required */,
-            db: "movies" /* optional. You could specify a database here or in the advance configuration option mentioned above*/
-        };
+        console.log("configured athenaExpress");
+        let myQuery = "SELECT title, genres, release_date, tagline FROM movies.itc6460_movie_metadata limit 10";
         console.log("Starting queryy...");
-        athenaExpress
-        .query(myQuery)
-        .then(results => {
-            console.log(results);
-        })
-    .catch(error => {
-        console.log(error);
-    });
+        let query = await athenaExpress.query(myQuery);
+        console.log(query);
+    
         response = {
             'statusCode': 200,
-            'body': JSON.stringify({
-                message: 'hello world',
-                // location: ret.data.trim()
-            })
+            'body': JSON.stringify(query)
         }
     } catch (err) {
         console.log(err);
+        response = {
+            'statusCode': 200,
+            'body': JSON.stringify('error: {err}')
+        }
         return err;
     }
 
