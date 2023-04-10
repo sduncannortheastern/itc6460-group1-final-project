@@ -9,14 +9,14 @@
   "dependencies": {
     "axios": "^0.21.2",
     "athena-express": "6.0.4",
-    "aws-sdk": "2.847.0"
+    "aws-sdk": "2.1354.0"
   },
   "scripts": {
     "test": "mocha tests/unit/",
     "integ-test": "mocha tests/integration/"
   },
   "devDependencies": {
-    "aws-sdk": "^2.815.0",
+    "aws-sdk": "^2.1354.0",
     "chai": "^4.2.0",
     "mocha": "^8.2.1"
   }
